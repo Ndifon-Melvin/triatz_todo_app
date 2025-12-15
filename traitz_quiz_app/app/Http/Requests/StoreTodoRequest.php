@@ -11,7 +11,7 @@ class StoreTodoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,24 @@ class StoreTodoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title'=>['required','string','max256'],
+            'description'=>'mullable|stirng',
+            'due_date'=>'nullable|date|after_or_equal:today',
+            'priority'=>'nullable|in:low,medium,high',
+        ];
+    }
+
+    public function messages():array
+    {
+        return
+        [
+        'title.required'=>'The title field is required.',
+        'title.string'=>'The title must be a string.',
+        'title.max'=>'The title may not be greater than 256 characters.',
+        'description.string'=>'The description must be a string.',
+        'due_date.date'=>'The due date must be a valid date.',
+        'due_dare.after_or_equal'=>'The due date must be today or a future date.',
+        'priority.in'=>'The priority must be one of the following:low,medium,high.',
         ];
     }
 }

@@ -23,6 +23,7 @@ class Todo extends Model
         'due_date' => 'datetime',
     ];
 
+    //relationship
     public function user(){
         return $this->belongsTo(User::class);
     }

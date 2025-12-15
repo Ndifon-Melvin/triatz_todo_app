@@ -13,7 +13,10 @@ class TodoController extends Controller
      */
     public function index()
     {
-        //
+        $user=auth()->user();
+        $todos=$user->todos()->get();
+
+        return view('todos.index',compact('todos'));
     }
 
     /**
@@ -21,7 +24,7 @@ class TodoController extends Controller
      */
     public function create()
     {
-        //
+        return view('todos.create');
     }
 
     /**
@@ -29,7 +32,9 @@ class TodoController extends Controller
      */
     public function store(StoreTodoRequest $request)
     {
-        //
+        auth()->user()->todos()->create($request->validated());
+
+        return redirect()->route('todos.index')->with('success','Todo created successfully.');
     }
 
     /**
