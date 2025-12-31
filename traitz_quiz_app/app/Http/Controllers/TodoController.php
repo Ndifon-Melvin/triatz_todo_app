@@ -32,7 +32,7 @@ class TodoController extends Controller
      */
     public function store(StoreTodoRequest $request)
     {
-        auth()->user()->todos()->create($request->validated());
+        auth()-> user()->todos()->create($request->validated());
 
         return redirect()->route('todos.index')->with('success','Todo created successfully.');
     }
